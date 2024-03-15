@@ -56,6 +56,19 @@ int** criarMatrizAleatoria(int tamMatriz){
     return matriz;
 }
 
+int** avancarGeracao(int** matriz, int tamMatriz){
+    bool morte, vive;
+    int aux =0;
+    //1 -> 0 se 2 > viz > 3 | 1 -> 1 se 3 >= viz >= 2 | 0 -> se viz = 3
+    for (int i=0; i<tamMatriz;i++){
+        
+
+
+    }
+
+    return matriz;
+}
+
 void inserirMatrizEmArquivo(bool *matrizGeradora, int *geracao, int **matriz, int tamanho, FILE *arquivo) {
     if (*matrizGeradora){
         fprintf(arquivo, "M%d\n", *geracao--);
@@ -64,7 +77,9 @@ void inserirMatrizEmArquivo(bool *matrizGeradora, int *geracao, int **matriz, in
         *geracao++;
     }
     *matrizGeradora = !matrizGeradora;
-    //---> implementar função do jogo para modificar a matriz aqui <---
+    //---> implementar função do jogo para modificar a matriz aqui <---]
+    // matriz = avancarGeracao(matriz);
+    printf("%d t", tamanho);
     for (int i = 0; i < tamanho; i++) {
         for (int j = 0; j < tamanho; j++) {
             fprintf(arquivo, "%d ", matriz[i][j]); // Escreve cada elemento da matriz no arquivo
@@ -73,26 +88,26 @@ void inserirMatrizEmArquivo(bool *matrizGeradora, int *geracao, int **matriz, in
     }
 }
 
-int** lerMatrizArquivo(char nomeArquivo[10],bool lerGeradora, int tamMatriz){
+int** lerMatrizArquivo(char nomeArquivo[10],bool lerGeradora, int *tamMatriz){
     FILE *arquivo = fopen(nomeArquivo, "r");
-    int** matriz = criarMatrizQuadrada(tamMatriz);
     int i,j = 0;
-    char linha[3];
     if( arquivo == NULL){
         printf("Erro ao abrir o arquivo");
         return 0;
     }
+    fscanf(arquivo,"%d",&tamMatriz);
+    printf("%d tam", tamMatriz);
+    int** matriz = criarMatrizQuadrada(&tamMatriz);
     /*
     while(fscanf(arquivo,"%d",&aux)!= EOF){
         if (fgetc(arquivo == 'G')){
             return 1;
         }
     }*/
-    fgets(linha, 3, arquivo);
-    for (i=0;i<tamMatriz;i++){
-        for (j=0;j<tamMatriz;j++){
+    for (i=0;i<&tamMatriz;i++){
+        for (j=0;j<&tamMatriz;j++){
             fscanf(arquivo, "%d ", &matriz[i][j]);
-            printf("%d ", matriz[i][j]);
+            // printf("%d ", matriz[i][j]);
         }
         printf("\n");
     }
@@ -103,15 +118,15 @@ int** lerMatrizArquivo(char nomeArquivo[10],bool lerGeradora, int tamMatriz){
 int main() {
     bool matrizGeradora = true;
     int geracoes = 2;
-    int tamMatriz = 5;
+    int *tamMatriz;
     // scanf("%d",&tamMatriz);
-    scanf("Digite quantas gerações serão feitas: %d", &geracoes);
+    // scanf("Digite quantas gerações serão feitas: %d", &geracoes);
     FILE *geracoesArq = fopen("geracoes.txt", "wr");
     //int** matrizAleatoria = criarListaAleatoria(tamMatriz);
-    int** matrizG = lerMatrizArquivo("input.txt", true,tamMatriz);    
-    inserirMatrizEmArquivo(&matrizGeradora, &geracoes, matrizG, tamMatriz,geracoesArq);
-    inserirMatrizEmArquivo(&matrizGeradora, &geracoes, matrizG, tamMatriz,geracoesArq); //Teste para impressao da matriz da segunda geraçao 
-    inserirMatrizEmArquivo(&matrizGeradora, &geracoes, matrizG, tamMatriz,geracoesArq);
+    int** matrizG = lerMatrizArquivo("input.txt", true,&tamMatriz);    
+    inserirMatrizEmArquivo(&matrizGeradora, &geracoes, matrizG, &tamMatriz,geracoesArq);
+    inserirMatrizEmArquivo(&matrizGeradora, &geracoes, matrizG, &tamMatriz,geracoesArq); //Teste para impressao da matriz da segunda geraçao 
+    inserirMatrizEmArquivo(&matrizGeradora, &geracoes, matrizG, &tamMatriz,geracoesArq);
     fclose(geracoesArq);
     return 0;
 }
