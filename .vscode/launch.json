@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/Documentos/Lab_AEDS_1",
-      "program": "d:/Documentos/Lab_AEDS_1/build/Debug/outDebug",
+      "cwd": "d:/Documentos/Lab_AEDS_1/src",
+      "program": "d:/Documentos/Lab_AEDS_1/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
